@@ -1,11 +1,17 @@
+
 #Individual's problem
 name: Agent
 
 symbols:
-  states: [a]
-  exogenous: [r,w,e]
+  #wealth
+  states: [a,] 
+  #interest rate, wage, and labor supply shock  
+  exogenous: [r,w,e]    
+  #time preference, risk averse coefficient, borrowing constraint, and maximum of wealth
   parameters: [beta,RiskAversion,B,a_max]
+  #assets at the end of the period (after consumption and wage earning)
   controls: [i]
+
 
 definitions:
   c: (1+r)*a + w*exp(e) - i
@@ -40,41 +46,15 @@ domain:
   a: [-B,a_max]
 
 exogenous:
-  r,w: !ConstantProcess
-      mu: [r,w]
-  e: !VAR1
-      rho: 0.95
-      sigma: [[0.06**2]]
+     r,w: !ConstantProcess
+        μ: [r, w]
+    e: !VAR1
+        ρ: 0.95
+        Σ: [[0.06**2]]
 
 
 options: 
   grid:
       !Cartesian
       orders: [30]
-
-
----
-
-# Equilibrium
-name: Aggregate
-
-symbols:
-  aggregate: [K]
-  parameters: [A,alpha,delta,N,rho]
-
-calibration:
-  A: 1
-  alpha: 0.36
-  delta: 0.025
-  N: 1.0 
-  K: 40
-
-projection:
-  r: A*alpha*(N/K)**(1-alpha) - delta
-  w: A*(1-alpha)*(K/N)**(alpha)
-
-
-equilibrium: 
-  - K = a
-
 
