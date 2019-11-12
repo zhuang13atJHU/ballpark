@@ -1,10 +1,10 @@
 #Individual's problem
-name: Agent
+name: Consumption Savings
 
 symbols:
   states: [a]
   exogenous: [r,w,e]
-  parameters: [beta,RiskAversion,B,a_max]
+  parameters: [beta,epsilon,phi,a_max]
   controls: [i]
 
 definitions:
@@ -13,7 +13,7 @@ definitions:
 equations:
 
   arbitrage:
-    - 1 - (beta*(1+r(+1)))**(1/RiskAversion)*c/c(+1) | -B <= i <= (1+r)*a + w*exp(e)
+    - 1 - (beta*(1+r(+1)))**(1/epsilon)*c/c(+1) | -phi <= i <= (1+r)*a + w*exp(e)
 
   transition:
     - a = i(-1)
@@ -21,9 +21,9 @@ equations:
 calibration: 
 
   # Parameters
-  beta: 0.99
-  RiskAversion: 1.00
-  B: 0.0000000001
+  beta: 0.96
+  epsilon: 1.00
+  phi: 0.0000000001
   a_max: 200
   a: 1
   i: a
@@ -32,19 +32,19 @@ calibration:
   alpha: 0.36
   A: 1 
   N: 1
-  delta: 0.025
+  delta: 0.08
   r: A*alpha*(N/K)**(1-alpha) - delta
   w: A*(1-alpha)*(K/N)**(alpha)
 
 domain:
-  a: [-B,a_max]
+  a: [-phi,a_max]
 
 exogenous:
   r,w: !ConstantProcess
       mu: [r,w]
   e: !VAR1
       rho: 0.95
-      sigma: [[0.06**2]]
+      Sigma: [[0.06**2]]
 
 
 options: 
@@ -56,16 +56,18 @@ options:
 ---
 
 # Equilibrium
-name: Aggregate
+name: Aiyagari
 
 symbols:
+  exogenous: [z]
   aggregate: [K]
   parameters: [A,alpha,delta,N,rho]
 
 calibration:
+  z: 0
   A: 1
   alpha: 0.36
-  delta: 0.025
+  delta: 0.08
   N: 1.0 
   K: 40
 
@@ -73,6 +75,8 @@ projection:
   r: A*alpha*(N/K)**(1-alpha) - delta
   w: A*(1-alpha)*(K/N)**(alpha)
 
+exogenous: !ConstantProcess
+      mu: [z]
 
 equilibrium: 
   - K = a
