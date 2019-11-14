@@ -1,10 +1,9 @@
-#Individual's problem
 name: Consumption Savings
 
 symbols:
   states: [a]
-  exogenous: [r,w,e]
-  parameters: [beta,B,a_max]
+  exogenous: [r, w, e]
+  parameters: [beta, B, a_max]
   controls: [i]
 
 definitions:
@@ -13,15 +12,14 @@ definitions:
 equations:
 
   arbitrage:
-    - 1 - beta*(1+r(+1))*c/c(+1) | -B <= i <= (1+r)*a + w*exp(e)
+    - 1-beta*(1+r(+1))*c/c(+1) | -B <= i <= (1+r)*a+w*exp(e)
 
   transition:
     - a = i(-1)
 
 calibration: 
 
-  # Parameters
-  beta: 0.99
+  beta: 0.96
   B: 1e-10
   a_max: 200.
   a: 1
@@ -31,20 +29,19 @@ calibration:
   alpha: 0.36
   A: 1 
   N: 1
-  delta: 0.025
+  delta: 0.08
   r: alpha*(N/K)**(1-alpha) - delta
   w: (1-alpha)*(K/N)**(alpha)
 
 domain:
-  a: [-B,a_max]
+  a: [-B, a_max]
 
 exogenous:
   r,w: !ConstantProcess
-      μ: [r,w]
+      μ: [r, w]
   e: !VAR1
-      ρ: 0.95
-      Σ: [[0.06**2]]
-
+      ρ: 0.90
+      Σ: [[0.2**2]]
 
 options: 
   grid:
@@ -54,33 +51,28 @@ options:
 
 ---
 
-# Equilibrium
 name: Ayiagari
 
 symbols:
   exogenous: [z]
   aggregate: [K]
-  parameters: [A,alpha,delta,N,ρ]
+  parameters: [A, alpha, delta, N, ρ]
 
 calibration:
   A: 1
   alpha: 0.36
-  delta: 0.025
+  delta: 0.08
   N: 1.0 
   K: 40
   z: 0
-  ρ: 0.95
-  σ: 0.025
 
-exogenous: !VAR1
-    ρ: 0.9
-    Σ: [[ 0.02 ]]
 
+exogenous: !ConstantProcess
+    μ: [z]
 
 projection:
-  r: alpha*exp(z)(N/K)**(1-alpha) - delta
+  r: alpha*exp(z)*(N/K)**(1-alpha) - delta
   w: (1-alpha)*exp(z)*(K/N)**(alpha)
-
 
 equilibrium: 
   - K = a
