@@ -2,6 +2,7 @@ This notebook uses Dolo and Dolark to replicate Aiyagari(1994). To install Dolar
 
 
 * git clone "dolo", "dolang" and "dolark" to the local directory:
+
      git clone https://github.com/econforge/dolo.git  
      git clone https://github.com/econforge/dolang.git   
      git clone https://github.com/econforge/dolark.git    
