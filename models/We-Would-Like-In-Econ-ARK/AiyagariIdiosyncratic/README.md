@@ -19,6 +19,6 @@ This notebook uses Dolo and Dolark to replicate Aiyagari(1994). To install Dolar
 
   ​    import dolark 
 
-This notebook also uses "pretty table" to generate tables of outputs. In order to run these codes, please also install "pretty table":  
+This notebook also uses "tabulate" to generate tables of outputs. In order to run these codes, please also install "tabulate":  
 
-* pip intall PTable
+* pip install tabulate
