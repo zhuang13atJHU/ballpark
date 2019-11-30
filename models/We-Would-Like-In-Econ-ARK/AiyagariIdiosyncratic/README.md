@@ -1,24 +1,32 @@
-This notebook uses Dolo and Dolark to replicate Aiyagari(1994). To install Dolark, please follow the steps below: 
+1. Please open this notebook in *JupyterLab*. To install it with pip, please conduct:
 
+   * pip install jupyterlab
 
-* git clone "dolo", "dolang" and "dolark" to the local directory:
+2. This notebook uses *Dolo* and *Dolark* to replicate Aiyagari(1994). To install Dolark, please follow the steps below: 
 
-     git clone https://github.com/econforge/dolo.git  
-     git clone https://github.com/econforge/dolang.git   
-     git clone https://github.com/econforge/dolark.git    
+   * git clone "dolo", "dolang" and "dolark" to the local directory:
 
-* go to the local directory and do "pip install -e . " for each of the three. (Three times in total)
+     ​    git clone https://github.com/econforge/dolo.git  
+     ​    git clone https://github.com/econforge/dolang.git   
+     ​    git clone https://github.com/econforge/dolark.git
 
-  ​    pip install -e .   
+   *  go to the local directory and do "pip install -e . " for each of the three. (Three times in total) 
 
-* open "Jupyter Lab" and import dolo, dolang, and dolark. 
+     ​    pip install -e .   
 
-  ​    import dolo 
+   * open "JupyterLab" and import dolo, dolang, and dolark. 
 
-  ​    import dolang 
+     ​    import dolo 
 
-  ​    import dolark 
+     ​    import dolang 
 
-This notebook also uses "tabulate" to generate tables of outputs. In order to run these codes, please also install "tabulate":  
+     ​    import dolark 
 
-* pip install tabulate
+     
+
+3. This notebook also uses *altair* for plotting graphs. To install it, please do:
+   * pip install altair
+
+4. This notebook also uses *tabulate* to generate tables of outputs. In order to run these codes, please also install "tabulate":  
+   * pip install tabulate
+
