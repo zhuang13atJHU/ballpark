@@ -182,3 +182,10 @@ plt.savefig('Figure_WealthDistribution.png')    # save the figure in the current
 save_results_to = 'Tex/Figures/'
 plt.savefig(save_results_to + 'Figure_WealthDistribution.png', dpi = 300)
 
+# Compile the LaTeX file
+import subprocess
+import os
+
+FileDir = os.path.dirname(os.path.realpath('__file__'))
+TexFile = os.path.join(FileDir, 'Tex/main.tex')
+subprocess.check_call(['pdflatex', TexFile], cwd='Tex')
