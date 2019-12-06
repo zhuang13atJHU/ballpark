@@ -181,3 +181,4 @@ plt.savefig('Figure_WealthDistribution.png')    # save the figure in the current
 # save the figure in the directory where TeX file is located.
 save_results_to = 'Tex/Figures/'
 plt.savefig(save_results_to + 'Figure_WealthDistribution.png', dpi = 300)
+
