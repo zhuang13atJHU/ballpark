@@ -17,6 +17,11 @@
 \usepackage{blindtext}
 
 \usepackage{subfiles}
+\usepackage{verbatim}
+\providecommand{\EqDir}{Equations}
+\providecommand{\RefDir}{References}
+\usepackage{biblatex}
+
 
 \title{Replication of Aiyagari(1994)}
 \author{Zixuan Huang and Mingzuo Sun}
@@ -25,7 +30,12 @@
 \begin{document}
 \linespread{2}
 \maketitle
-The paper we replicated is "Uninsured Idiosyncratic Risk and Aggregate Saving" by S. Rao Aiyagari. The paper was published in The Quaterly Journal of Economics, Vol. 109, No. 3 (Aug., 1994). Besides this document, you can also find the corresponding notebook \href{run:../Aiyagari1994QJE.ipynb}{here}, which contains concrete steps of our replication.
+
+\begin{verbatim}{\EqDir/IndividualsProblem.tex}
+\end{verbatim}
+
+
+The paper we replicated is "Uninsured Idiosyncratic Risk and Aggregate Saving" by S. Rao Aiyagari \cite{\RefDir/ref/aiyagari_1994}. The paper was published in The Quaterly Journal of Economics, Vol. 109, No. 3 (Aug., 1994). Besides this document, you can also find the corresponding notebook \href{run:../Aiyagari1994QJE.ipynb}{here}, which contains concrete steps of our replication.
 
 \section{Abstract}
 The paper modifies standard growth model to include precautionary saving motives and liquidity constraints.The paper also examines the impact of the introduction of a particular kind of uninsurable idiosyncratic risk on the aggregate saving rate; the importance of asset trading to individuals; and the relative inequality of the wealth and income distributions. 
@@ -46,25 +56,15 @@ The model in Aiyagari(1994) originates from Bewley model and a subsequent litera
 \section{Model}
 \subsection{Individual's Problem}
 
-\begin{align}
-	\max E_0\left(\sum_{t=0}^\infty \beta^t U(c_t)\right)\\
-	\text{s.t.}\\
-	c_t+a_{t+1}=wl_{t}+(1+r)a_t \\
-	c_t\geq0\\
-	a_t\geq-\phi
-\end{align} \\
+\input{\EqDir/IndividualsProblem.tex}
 where $\phi$ (if positive) is the limit on borrowing; $l_t$ is assumed to be i.i.d with bounded support given by $[l_{min},l_{max}]$, with $l_{min}>0$; $w$ and $r$ represent wage and interest rate respectively.
 
 Let $\hat{a}_t \equiv a_t+\phi$ and $z_t \equiv wl_t+(1+r)\hat{a}_t-r\phi$, where $z_t$ can be interpreted as total resources of the agent at date $t$ respectively. 
 Then the Bellman equation is as follows:
-\begin{align}
-V(z_t,\phi,w,r) \equiv \underset{\hat{a}_{t+1}}{\max}\left(U(z_t-\hat{a}_{t+1})+\beta \int V(z_{t+1},\phi,w,r)\ dF(l_{t+1})  \right)
-\end{align}
+\input{\EqDir/BellmanEquation.tex}
 
 Consequently, Euler equation is: 
-\begin{align}
-	U^\prime (z_t-\hat{a}_{t+1})=\beta(1+r)\int U^\prime (z_{t+1}-\hat{a}_{t+2})\ dF(l_{t+1})
-\end{align}
+\input{\EqDir/EulerEquation.tex}
 
 Solve the model, the decision rule can be written as: 
 \begin{align}
@@ -77,9 +77,7 @@ And the law of transition would be:
 \end{align}
 
 \subsection{Firm's Problem}
-\begin{align}
-	\max F(K,L)-wL-rK
-\end{align}
+\input{\EqDir/FirmsProblem}
 where $K$ is the aggregate capital, $L$ is the aggregate labor, $F(K,L)$ is the production function.
 
 \subsection{General Equilibrium}
@@ -139,6 +137,9 @@ The following figure shows the wealth distribution, where the x-axis represents 
 \section{Appendix}{\label{Appendix}}
 	\subfile{Appendix/Appendix}
 
+\newpage 
 
+\bibliography{\RefDir/ref}
+\bibliographystyle{economics}
 
 \end{document}
