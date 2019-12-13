@@ -164,3 +164,28 @@ m = tabulate(df3,headers, tablefmt="github")
 table = open("Table_SavingRate.md", "w")
 #save the markdown table in the markdown file
 table.write(m) 
+
+# save it in a latex table
+latex = tabulate(df3,headers, tablefmt="latex")
+path = 'Tex\\Tables\\Table_SavingRate.tex'
+table2 = open(path, 'w')
+table2.write(latex)     #save the latex table
+
+# plot wealth distribution under the baseline calibration
+s = eq.dr.endo_grid.nodes() # grid for states (i.e the state variable--wealth in this case)
+plt.plot(s[0:20], eq.μ.sum(axis=0)[0:20], color='black')   # I drop the last 10 grids when plotting since the probabilities of these levels of wealth are very close to zero. # The reason why I didn't use log for wealth is that taking log of a number which is extremely close to zero gets a very negative number 
+plt.grid()
+plt.title("Wealth Distribution")
+plt.savefig('Figure_WealthDistribution.png')    # save the figure in the current directory 
+
+# save the figure in the directory where TeX file is located.
+save_results_to = 'Tex/Figures/'
+plt.savefig(save_results_to + 'Figure_WealthDistribution.png', dpi = 300)
+
+# Compile the LaTeX file
+import subprocess
+import os
+
+FileDir = os.path.dirname(os.path.realpath('__file__'))
+TexFile = os.path.join(FileDir, 'Tex/main.tex')
+subprocess.check_call(['pdflatex', TexFile], cwd='Tex')
